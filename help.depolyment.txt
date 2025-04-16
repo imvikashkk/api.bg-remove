@@ -1,0 +1,15 @@
+# For aws ec2 git pull and refresh
+
+
+
+cd /home/ec2-user/projects/api-bg-remove
+source .venv/bin/activate
+
+git pull origin main  # or your correct branch name
+
+#make sure about torch package don't install that again
+pip3 install -r requirements.txt
+
+sudo systemctl restart fastapi
+
+sudo systemctl status fastapi
