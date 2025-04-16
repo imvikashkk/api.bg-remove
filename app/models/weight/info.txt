@@ -1,0 +1,1 @@
+download : u2net.pth : https://drive.usercontent.google.com/download?id=1lrgt9ijt0ocmY-q2Cga-GYJZh9Q4miLE&export=download
