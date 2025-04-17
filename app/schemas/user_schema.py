@@ -84,3 +84,9 @@ class ForgotPassSetPass_Req(BaseModel):
     otp:str
     password:str
     confirmpassword:str
+
+class SubscriberCreate(BaseModel):
+    email:EmailStr
+    force:bool
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None

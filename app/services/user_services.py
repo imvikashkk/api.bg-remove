@@ -288,3 +288,29 @@ async def authenticate_user(data: dict):
 
 
     return True, response
+
+
+async def subscribe_update(user_data:dict):
+    required_fields = ["email"]
+    missing = [field for field in required_fields if field not in user_data or user_data[field] is None]
+    if missing:
+        return False, f"Missing required fields: {', '.join(missing)}"
+    
+    alreadySubscribe = await db.subscribers.find_one({"email": user_data.get("email")})
+    if alreadySubscribe and (user_data.get("force") is not True):
+        return False, f"Already ({user_data.get("email")}) Subscribed!"
+    if alreadySubscribe and (user_data.get("force") is True):
+        await db.subscribers.update_one(
+          {"email": user_data.get("email")},
+          {"$set": {
+            "updated_at": datetime.now(timezone.utc) 
+          }}
+        )
+        return True, f"You ({user_data.get("email")}) are re-subscribed."
+    
+    result = await db.subscribers.insert_one({
+        "email":user_data.get("email"),
+        "created_at":datetime.now(timezone.utc),
+        "updated_at": datetime.now(timezone.utc) 
+    })
+    return True, f"You ({user_data.get("email")}) are subscribed."

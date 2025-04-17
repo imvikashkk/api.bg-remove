@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request, Response, status, Depends
 from fastapi.responses import JSONResponse
 from app.controllers import user_controller
 from app.core.config import COOKIE_SECURE
-from app.schemas.user_schema import UserCreate, LoginSchema, Email_OTP_Request, Email_Verify_Request, ForgotPassSetPass_Req
+from app.schemas.user_schema import SubscriberCreate, UserCreate, LoginSchema, Email_OTP_Request, Email_Verify_Request, ForgotPassSetPass_Req
 from app.utils.jwt_verification import verify_token
 
 router = APIRouter()
@@ -10,9 +10,6 @@ router = APIRouter()
 @router.post("/register")
 async def register_user(user: UserCreate):
     return await user_controller.register_user(user)
-
-# @router.post("/google_signup")
-# async def 
 
 @router.post("/login")
 async def login_user(data: LoginSchema):
@@ -57,3 +54,8 @@ async def send_otp_forgot_pass(data: Email_OTP_Request):
 @router.post("/forgot_pass/update_password")
 async def set_pass_forgot_pass(data: ForgotPassSetPass_Req):
     return await user_controller.forgot_password_set_password(data)
+
+
+@router.post("/subscribe")
+async def subscribe_future_updtes(data: SubscriberCreate):
+    return await user_controller.subscribe(data)
