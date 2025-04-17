@@ -15,8 +15,8 @@ app = FastAPI()
 # CORS Configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://bg-remover.vikashkk.com"],
-    # allow_origins=["http://localhost:3000"],  # Allow all origins or specify a list of allowed origins
+    # allow_origins=["https://bg-remover.vikashkk.com"],
+    allow_origins=["http://localhost:3000"],  # Allow all origins or specify a list of allowed origins
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, OPTIONS, etc.)
     allow_headers=["*"],  # Allow all headers
