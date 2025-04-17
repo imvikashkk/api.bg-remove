@@ -298,7 +298,7 @@ async def subscribe_update(user_data:dict):
     
     alreadySubscribe = await db.subscribers.find_one({"email": user_data.get("email")})
     if alreadySubscribe and (user_data.get("force") is not True):
-        return False, f"Already ({user_data.get("email")}) Subscribed!"
+        return False, f"Already Subscribed!\n({user_data.get("email")})"
     if alreadySubscribe and (user_data.get("force") is True):
         await db.subscribers.update_one(
           {"email": user_data.get("email")},
@@ -306,11 +306,11 @@ async def subscribe_update(user_data:dict):
             "updated_at": datetime.now(timezone.utc) 
           }}
         )
-        return True, f"You ({user_data.get("email")}) are re-subscribed."
+        return True, f"You are re-subscribed.\n({user_data.get("email")})"
     
     result = await db.subscribers.insert_one({
         "email":user_data.get("email"),
         "created_at":datetime.now(timezone.utc),
         "updated_at": datetime.now(timezone.utc) 
     })
-    return True, f"You ({user_data.get("email")}) are subscribed."
+    return True, f"You are subscribed.\n({user_data.get("email")})"
