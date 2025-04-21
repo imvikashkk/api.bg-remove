@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Request, Depends, Response
 from app.routes.user_routes import router as user_router
 from app.routes.remove_bg_route import router as remove_bg_router
 from fastapi.templating import Jinja2Templates
@@ -10,23 +10,27 @@ from app.utils.jwt_verification_always_pass import verify_token_always_pass
 
 app = FastAPI()
 
-
-
 # CORS Configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://bg-remover.vikashkk.com"],
-    # allow_origins=["http://localhost:3000"],  # Allow all origins or specify a list of allowed origins
+    allow_origins=["https://ai-bg-remover.com", "https://bgremover.orinson.com"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, OPTIONS, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+
 
 # Mount static files (for CSS, JS, images)
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 # Set up Jinja2 template engine
 templates = Jinja2Templates(directory="app/templates")
+
+@app.options("/{rest_of_path:path}")
+async def preflight_handler():
+    return Response(status_code=204)
+
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):

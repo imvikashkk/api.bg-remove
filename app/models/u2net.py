@@ -16,15 +16,6 @@ os.makedirs(WEIGHT_DIR, exist_ok=True)
 # Final model path
 model_path = os.path.join(WEIGHT_DIR, "u2net.pth")
 
-# Download if not already there
-if not os.path.exists(model_path):
-    print("Downloading model weights...")
-    gdown.download(
-        "https://drive.usercontent.google.com/download?id=1lrgt9ijt0ocmY-q2Cga-GYJZh9Q4miLE&export=download",  # Replace with actual ID
-        model_path,
-        quiet=False
-    )
-
 
 class REBNCONV(nn.Module):
     def __init__(self,in_ch=3,out_ch=3,dirate=1):

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Response, status, Depends
 from fastapi.responses import JSONResponse
 from app.controllers import user_controller
-from app.core.config import COOKIE_SECURE
+from app.core.config import PRODUCTION
 from app.schemas.user_schema import SubscriberCreate, UserCreate, LoginSchema, Email_OTP_Request, Email_Verify_Request, ForgotPassSetPass_Req
 from app.utils.jwt_verification import verify_token
 
@@ -25,7 +25,7 @@ async def logout():
     key="access_token",
     value="",
     httponly=True,
-    secure=COOKIE_SECURE,
+    secure=PRODUCTION,
     samesite="lax",
     max_age=0,
     expires=0,  # Explicitly expire the cookie immediately 
@@ -33,6 +33,8 @@ async def logout():
     )
 
     return response
+
+
 
 @router.post("/check_session")
 def check_session(request: Request, user=Depends(verify_token)):
