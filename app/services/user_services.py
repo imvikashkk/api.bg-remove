@@ -1,6 +1,6 @@
 from fastapi import  status, Request
 from fastapi.responses import JSONResponse
-from app.core.config import PRODUCTION
+from app.core.config import IS_PRODUCTION
 from app.core.database import db
 from app.schemas.user_schema import UserCreate, UserResponse, LoginSchema, LoginResponse
 from passlib.hash import bcrypt
@@ -281,7 +281,7 @@ async def authenticate_user(data: dict):
         key="access_token",
         value=token,
         httponly=True,
-        secure=PRODUCTION,
+        secure=IS_PRODUCTION,
         domain=".ai-bg-remover.com",
         samesite="lax",
         max_age=max_age,

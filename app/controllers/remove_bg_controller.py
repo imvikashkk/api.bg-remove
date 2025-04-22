@@ -33,11 +33,14 @@ async def remove_bg_controller(file: UploadFile):
     try:
         image = Image.open(BytesIO(image_bytes))
         width, height = image.size
+        # print(f"Image size: {width}x{height}")
     except Exception as e:
         raise HTTPException(status_code=400, detail={"success":False, "message":"Invalid image file format."})
+    
+
 
     # Check if image size exceeds 2800x2800
-    if width > 2800 or height > 2800:
+    if width > 2801 or height > 2801:
         raise HTTPException(
             status_code=400,
             detail={"success":False, "message":"Image size exceeds the maximum allowed dimensions of 2800x2800."}

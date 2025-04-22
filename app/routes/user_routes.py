@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Response, status, Depends
 from fastapi.responses import JSONResponse
 from app.controllers import user_controller
-from app.core.config import PRODUCTION
+from app.core.config import IS_PRODUCTION
 from app.schemas.user_schema import SubscriberCreate, UserCreate, LoginSchema, Email_OTP_Request, Email_Verify_Request, ForgotPassSetPass_Req
 from app.utils.jwt_verification import verify_token
 
@@ -28,7 +28,7 @@ async def logout(request: Request):
             key=cookie_name,
             value="",
             httponly=True,
-            secure=PRODUCTION,
+            secure=IS_PRODUCTION,
             domain=".ai-bg-remover.com",
             samesite="lax",
             max_age=0,

@@ -6,22 +6,23 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from app.utils.jwt_verification_always_pass import verify_token_always_pass
-from app.core.config import PRODUCTION
+from app.core.config import IS_PRODUCTION
 
 
 app = FastAPI()
 
-ALLOW_ORIGIN = ["http://localhost:3000"]
+ALLOW_ORIGIN = ["https://ai-bg-remover.com"]
 
-if PRODUCTION is True:
-    ALLOW_ORIGIN = ["https://ai-bg-remover.com"]
+if IS_PRODUCTION is not True:
+    ALLOW_ORIGIN = ["http://localhost:3000"]
+
 
 # CORS Configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOW_ORIGIN,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["OPTIONS","GET", "POST", "PUT", "DELETE", "PATCH"],
     allow_headers=["*"]
 )
 
