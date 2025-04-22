@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from app.utils.jwt_verification_always_pass import verify_token_always_pass
-from server.app.core.config import PRODUCTION
+from app.core.config import PRODUCTION
 
 
 app = FastAPI()
