@@ -13,10 +13,10 @@ app = FastAPI()
 # CORS Configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://ai-bg-remover.com", "https://bgremover.orinson.com"],
+    allow_origins=["https://ai-bg-remover.com", "https://bgremover.orinson.com" , "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
 

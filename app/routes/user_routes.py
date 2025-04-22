@@ -16,21 +16,24 @@ async def login_user(data: LoginSchema):
     return await user_controller.login_user(data)
 
 @router.post("/logout")
-async def logout():
+async def logout(request: Request):
     response = JSONResponse(
         status_code=status.HTTP_200_OK,
         content={"success": True, "message": "Successfully logged out"}
     )
-    response.set_cookie(
-    key="access_token",
-    value="",
-    httponly=True,
-    secure=PRODUCTION,
-    samesite="lax",
-    max_age=0,
-    expires=0,  # Explicitly expire the cookie immediately 
-    path="/"
-    )
+
+    # Clear all cookies
+    for cookie_name in request.cookies.keys():
+        response.set_cookie(
+            key=cookie_name,
+            value="",
+            httponly=True,
+            secure=PRODUCTION,
+            samesite="lax",
+            max_age=0,
+            expires=0,
+            path="/"
+        )
 
     return response
 
