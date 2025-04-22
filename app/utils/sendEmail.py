@@ -1,20 +1,23 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.utils import formataddr
 from fastapi import FastAPI, HTTPException
-from app.core.config import SMTP_EMAIL, SMTP_EMAIL_PASS
+from app.core.config import SMTP_EMAIL, SMTP_EMAIL_PASS, SMTP_EMAIL_SEND_AS
 
 def send_email(subject: str, body: str, to_email: str):
     try:
-        from_email = SMTP_EMAIL
+        from_email = SMTP_EMAIL_SEND_AS
+        sender_name = "AI BG Remover"
+        login_email = SMTP_EMAIL
         password = SMTP_EMAIL_PASS
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login(from_email, password)
+        server.login( login_email, password)
         
         msg = MIMEMultipart()
-        msg['From'] = from_email
+        msg['From'] = formataddr((sender_name, from_email))
         msg['To'] = to_email
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'html'))
