@@ -14,7 +14,7 @@ app = FastAPI()
 ALLOW_ORIGIN = ["http://localhost:3000"]
 
 if PRODUCTION is True:
-    ALLOW_ORIGIN = ["https://bgremover.orinson.com"]
+    ALLOW_ORIGIN = ["https://ai-bg-remover.com"]
 
 # CORS Configuration
 app.add_middleware(
