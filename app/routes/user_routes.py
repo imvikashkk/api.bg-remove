@@ -29,6 +29,7 @@ async def logout(request: Request):
             value="",
             httponly=True,
             secure=PRODUCTION,
+            domain="orinson.com",
             samesite="lax",
             max_age=0,
             expires=0,

@@ -282,6 +282,7 @@ async def authenticate_user(data: dict):
         value=token,
         httponly=True,
         secure=PRODUCTION,
+        domain="orinson.com",
         samesite="lax",
         max_age=max_age,
         path="/"
