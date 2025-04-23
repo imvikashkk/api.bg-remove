@@ -5,6 +5,8 @@ source .venv/bin/activate
 
 git pull origin main  # or your correct branch name
 
+#recheck .env 
+
 #make sure about torch package don't install that again 
 pip3 install -r requirements.txt
 
